@@ -1,42 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>S5 Acudits</title>
-    <link rel="stylesheet" href="style.css" />
-    <!-- CDN font awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css"
-      integrity="sha512-SUwyLkI1Wgm4aEZkDkwwigXaOI2HFLy1/YW73asun4sfvlkB9Ecl99+PHfCnfWD0FJjIuFTvWMM7BZPXCckpAA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-  </head>
-  <body>
-    <div class="card">
-      <h2 class="card-title">😂 Ready to laugh? 😂</h2>
-      <h4 id="joke"></h4>
-      <div class="jokeScores">
-        <a href="#" class="jokeScore" onclick="newScore(1)"><i class="far fa-meh"></i></a>
-        <a href="#" class="jokeScore" onclick="newScore(2)"><i class="far fa-smile"></i></a>
-        <a href="#" class="jokeScore" onclick="newScore(3)"><i class="far fa-grin-beam"></i></a>
-      </div>
-      <button
-        type="button"
-        name="nextJoke"
-        onclick="newJoke()"
-        class="nextJokeBtn"
-      >
-        Next joke
-      </button>
-    </div>
 
-    <script>
-      var exports = {};
-    </script>
-    <script src="src/js/main.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>S5 Acudits</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- CDN font awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css"
+    integrity="sha512-SUwyLkI1Wgm4aEZkDkwwigXaOI2HFLy1/YW73asun4sfvlkB9Ecl99+PHfCnfWD0FJjIuFTvWMM7BZPXCckpAA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <div id="weather"></div>
+  <div class="card">
+    <h2 class="card-title">😂 Ready to laugh? 😂</h2>
+    <h4 id="joke"></h4>
+    <div class="jokeScores">
+      <a href="#" class="jokeScore" onclick="newScore(1)"><i class="far fa-meh"></i></a>
+      <a href="#" class="jokeScore" onclick="newScore(2)"><i class="far fa-smile"></i></a>
+      <a href="#" class="jokeScore" onclick="newScore(3)"><i class="far fa-grin-beam"></i></a>
+    </div>
+    <button type="button" name="nextJoke" onclick="newJoke()" class="nextJokeBtn">
+      Next joke
+    </button>
+  </div>
+
+  <script>
+    var exports = {};
+  </script>
+  <script src="src/js/main.js"></script>
+</body>
+
 </html>
