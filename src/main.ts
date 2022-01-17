@@ -1,5 +1,5 @@
 // Import elements
-import { joke, jokeReport, weather } from "./interfaces";
+import { joke, jokeReport, weather, jokeChuck } from "./interfaces";
 
 // Exercici 1
 const apiJoke = "https://icanhazdadjoke.com/";
@@ -8,16 +8,21 @@ const headerJson = {
     Accept: "application/json",
   },
 };
-const htmlJoke: HTMLElement | null = document.querySelector("#joke");
-var jokeJson: joke;
+const htmlJoke = document.querySelector("#joke");
+var jokeText: string;
 
 function newJoke(): void {
-  fetch(apiJoke, headerJson)
-    .then((response) => response.json())
-    .then((data: joke) => {
-      htmlJoke.innerHTML = `"${data.joke}"`;
-      jokeJson = data;
-    });
+  if (Math.random() < 0.5) {
+    getChuckNorrisJoke();
+  } else {
+    fetch(apiJoke, headerJson)
+      .then((response) => response.json())
+      .then((data: joke) => {
+        htmlJoke!.innerHTML = `"${data.joke}"`;
+        jokeText = data.joke;
+        changeBlub();
+      });
+  }
 }
 
 // Exercici 3
@@ -25,7 +30,7 @@ const reportAcudits: jokeReport[] = [];
 
 function newScore(score: number) {
   reportAcudits.push({
-    joke: jokeJson.joke,
+    joke: jokeText,
     score: score,
     date: new Date().toISOString(),
   });
@@ -43,7 +48,7 @@ fetch(apiWheater("barcelona"))
   .then((data: weather) => printWeatherData(data));
 
 function printWeatherData(data: weather): void {
-  htmlWeather.innerHTML = `<h1 style="font-weight: 200">${data.name}</h1>
+  htmlWeather!.innerHTML = `<h1 style="font-weight: 200">${data.name}</h1>
   <h2>
     ${getWeatherIcon(data.weather[0].id)}
     <span>|</span>
@@ -77,4 +82,25 @@ function getWeatherIcon(weatherId: number): string {
     default:
       return `<i class="fas fa-meteor" style="color:brown; text-shadow: 2px 2px 10px black"></i>`;
   }
+}
+
+// Exercici 5
+const apiChuckNorris = "https://api.chucknorris.io/jokes/random";
+
+function getChuckNorrisJoke(): void {
+  fetch(apiChuckNorris)
+    .then((response) => response.json())
+    .then((data: jokeChuck) => {
+      htmlJoke!.innerHTML = `"${data.value}"`;
+      jokeText = data.value;
+      changeBlub();
+    });
+}
+
+// Exercici 6 
+const htmlBlub = document.querySelector('.card');
+
+function changeBlub(): void {
+  const blubNum = Math.floor(Math.random()*5)+1
+  htmlBlub!.className = `blub${blubNum}`;
 }

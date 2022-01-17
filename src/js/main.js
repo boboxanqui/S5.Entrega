@@ -8,20 +8,26 @@ const headerJson = {
     },
 };
 const htmlJoke = document.querySelector("#joke");
-var jokeJson;
+var jokeText;
 function newJoke() {
-    fetch(apiJoke, headerJson)
-        .then((response) => response.json())
-        .then((data) => {
-        htmlJoke.innerHTML = `"${data.joke}"`;
-        jokeJson = data;
-    });
+    if (Math.random() < 0.5) {
+        getChuckNorrisJoke();
+    }
+    else {
+        fetch(apiJoke, headerJson)
+            .then((response) => response.json())
+            .then((data) => {
+            htmlJoke.innerHTML = `"${data.joke}"`;
+            jokeText = data.joke;
+            changeBlub();
+        });
+    }
 }
 // Exercici 3
 const reportAcudits = [];
 function newScore(score) {
     reportAcudits.push({
-        joke: jokeJson.joke,
+        joke: jokeText,
         score: score,
         date: new Date().toISOString(),
     });
@@ -31,12 +37,9 @@ function newScore(score) {
 // Exercici 4
 const htmlWeather = document.getElementById("weather");
 var apiWheater = (city) => `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=acaf6f925773a3b320516f453714edad`;
-// addEventListener de 'load' con callback de la función que llama a la api, recoger datos de la api: Nombre, temp (kelvin a Celsius), meteorologia con codigo (switch/funcion), humedad?, etc.
-//function getWeather(): void {
-fetch(apiWheater('barcelona'))
+fetch(apiWheater("barcelona"))
     .then((response) => response.json())
     .then((data) => printWeatherData(data));
-//}
 function printWeatherData(data) {
     htmlWeather.innerHTML = `<h1 style="font-weight: 200">${data.name}</h1>
   <h2>
@@ -53,15 +56,15 @@ function getWeatherIcon(weatherId) {
     switch (weatherIdString[0]) {
         case "2":
             return `<i class="fas fa-bolt" style="color:yellow; text-shadow: 2px 2px 10px black ;"></i>`;
-        case '3':
+        case "3":
             return `<i class="fas fa-cloud-rain" style="color:lightskyblue; text-shadow: 2px 2px 5px black ;"></i>`;
-        case '5':
+        case "5":
             return `<i class="fas fa-cloud-showers-heavy" style="color:lightskyblue; text-shadow: 2px 2px 5px black ;"></i>`;
-        case '6':
+        case "6":
             return `<i class="fas fa-snowflake" style="color: lightcyan; text-shadow: 2px 2px 10px black"></i>`;
-        case '7':
+        case "7":
             return `<i class="fas fa-smog" style="color: gainsboro; text-shadow: 2px 2px 10px black"></i>`;
-        case '8':
+        case "8":
             if (weatherId === 800) {
                 return `<i class="fas fa-sun" style="color: yellow; text-shadow: 2px 2px 10px black"></i>`;
             }
@@ -71,5 +74,22 @@ function getWeatherIcon(weatherId) {
         default:
             return `<i class="fas fa-meteor" style="color:brown; text-shadow: 2px 2px 10px black"></i>`;
     }
+}
+// Exercici 5
+const apiChuckNorris = "https://api.chucknorris.io/jokes/random";
+function getChuckNorrisJoke() {
+    fetch(apiChuckNorris)
+        .then((response) => response.json())
+        .then((data) => {
+        htmlJoke.innerHTML = `"${data.value}"`;
+        jokeText = data.value;
+        changeBlub();
+    });
+}
+// Exercici 6 
+const htmlBlub = document.querySelector('.card');
+function changeBlub() {
+    const blubNum = Math.floor(Math.random() * 5) + 1;
+    htmlBlub.className = `blub${blubNum}`;
 }
 //# sourceMappingURL=main.js.map
